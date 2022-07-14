@@ -1,3 +1,10 @@
+<p>
+    Запуск из консоли: <br>
+    php yii queue/info - проверяем, что задание попало в очередь<br>
+    php yii queue/run -v - запуск очереди
+</p>
+
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">

@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Randomizer;
+use app\models\RandomizerJob;
 
 class SiteController extends Controller
 {
@@ -124,5 +126,25 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionAdmin()
+    {   
+        $rnd = Randomizer::find()->all();
+        return $this->render('admin', ['rnd' => $rnd]);
+    }
+
+    public function actionGenerate()
+    {
+        $model = new Randomizer();
+
+        $rnd = rand(1, 1000);
+        $model->rnd = $rnd;
+        $model->save();
+
+        //запуск из консоли
+        Yii::$app->queue->delay(5)->push(new RandomizerJob(['rnd' =>  $rnd]));
+
+        return $this->render('index', ['rnd' => $rnd]);        
     }
 }
